@@ -19,6 +19,21 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->nullable();
+            $table->string('passport_seriya')->nullable();
+            $table->enum('role', ['0','1', '2', '3', '4'])->default('0');
+            $table->string('photo')->default('nophoto.png');
+            $table->text('description')->nullable();
+            $table->enum('position', ['Garson','Garson Assistant', 'Chef', 'Chef Assistant', 'Steward', 'Hostes'])->default('Garson');
+            $table->integer('description')->default(0);
+            $table->integer('balance')->default(0);
+            $table->integer('completed_work')->default(0);
+            $table->enum('appeal_work', ['0','1', '2'])->default('0');
+
+            $table->smallInteger('eng_lang')->default(0);
+            $table->smallInteger('tr_lang')->default(0);
+            $table->smallInteger('ru_lang')->default(0);
+
             $table->rememberToken();
             $table->timestamps();
         });

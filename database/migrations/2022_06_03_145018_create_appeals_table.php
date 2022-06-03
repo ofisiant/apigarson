@@ -13,17 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('appeals', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('photo')->nullable();
-            $table->integer('salary');
-            $table->smallInteger('employers');
-            $table->string('customer');
-            $table->enum('position', ['Garson', 'Garson Assistant','Chef' , 'Steward' , 'Hostes']);
-            $table->text('description');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade');
+
+            $table->integer('job_id');
+            $table->foreign('job_id')
+                ->references('id')
+                ->on('works')
+                ->onUpdate('cascade');
+
             $table->enum('status', ['0', '1','2']);
-            $table->dateTime('start_at');
             $table->timestamps();
         });
     }
@@ -35,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('appeals');
     }
 };
