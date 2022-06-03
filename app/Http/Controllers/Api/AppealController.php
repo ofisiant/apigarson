@@ -12,14 +12,34 @@ class AppealController extends Controller
 {
     public function store(Request $request)
     {
+
+        //validation
+        if (Auth::user()->role < '2') {
+            return response()->json([
+                "success" => false,
+                "message" => "İşə  müraciət etmək üçün ilk öncə Hesabınızı təstiq edin",
+            ]);
+        }
+
+        if (Auth::user()->appeal_work == '1') {
+            return response()->json([
+                "success" => false,
+                "message" => "Siz artıq müraciət etmisiniz",
+            ]);
+        }
+
+
+        //insert data to Appeals
         $id = Auth::user()->id;
         $insert = new Appeal;
         $insert->user_id = $id;
         $insert->job_id = $request->job_id;
 
         if ($insert->save()) {
+
+            //if insert change in users column
             User::where('id', Auth::user()->id)->update(["appeal_work" => '1']);
-            //return Redirect::back()->with('success', 'Müraciətiniz qəbul olundu');
+
             return response()->json([
                 "success" => true,
                 "message" => "Müraciətiniz qəbul olundu",

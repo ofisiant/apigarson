@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\WorkController;
 use Illuminate\Http\Request;
@@ -27,4 +28,5 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('products', ProductController::class);
     Route::resource('works', WorkController::class);
     Route::resource('appeal', AppealController::class);
+    Route::resource('profile', ProfileController::class);
 });

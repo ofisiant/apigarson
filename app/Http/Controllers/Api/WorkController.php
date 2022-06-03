@@ -17,7 +17,7 @@ class WorkController extends Controller
         //return $this->sendResponse(WorkResource::collection($works), 'Works retrieved successfully.');
         return response()->json([
             "success" => true,
-            "message" => "Product created successfully.",
+            "message" => "Active Works",
             "data" => $works
         ]);
     }

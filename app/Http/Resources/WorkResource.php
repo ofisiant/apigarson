@@ -28,5 +28,6 @@ class WorkResource extends JsonResource
             'start_at' => $this->start_at,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
-        ];    }
+        ];
+    }
 }
