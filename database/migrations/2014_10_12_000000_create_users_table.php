@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('photo')->default('nophoto.png');
             $table->text('description')->nullable();
             $table->enum('position', ['Garson','Garson Assistant', 'Chef', 'Chef Assistant', 'Steward', 'Hostes'])->default('Garson');
-            $table->integer('description')->default(0);
             $table->integer('balance')->default(0);
             $table->integer('completed_work')->default(0);
             $table->enum('appeal_work', ['0','1', '2'])->default('0');

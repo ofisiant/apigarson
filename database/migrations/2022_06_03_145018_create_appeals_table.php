@@ -15,20 +15,15 @@ return new class extends Migration
     {
         Schema::create('appeals', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned();
+            $table->index('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade');
+            $table->bigInteger('job_id')->unsigned();
+            $table->index('job_id');
+            $table->foreign('job_id')->references('id')->on('works');
 
-            $table->integer('job_id');
-            $table->foreign('job_id')
-                ->references('id')
-                ->on('works')
-                ->onUpdate('cascade');
-
-            $table->enum('status', ['0', '1','2']);
+            $table->enum('status', ['0', '1','2'])->default(0);
             $table->timestamps();
         });
     }
