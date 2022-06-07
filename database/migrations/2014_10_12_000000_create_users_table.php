@@ -27,7 +27,7 @@ return new class extends Migration
             $table->enum('position', ['Garson','Garson Assistant', 'Chef', 'Chef Assistant', 'Steward', 'Hostes'])->default('Garson');
             $table->integer('balance')->default(0);
             $table->integer('completed_work')->default(0);
-            $table->enum('appeal_work', ['0','1', '2'])->default('0');
+            $table->enum('job_status', ['0','1', '2'])->default('0');
 
             $table->smallInteger('eng_lang')->default(0);
             $table->smallInteger('tr_lang')->default(0);

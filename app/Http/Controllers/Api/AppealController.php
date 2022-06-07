@@ -4,16 +4,44 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Work;
 use Illuminate\Http\Request;
 use App\Models\Appeal;
 use Illuminate\Support\Facades\Auth;
 
 class AppealController extends Controller
 {
+
+    public  function show($id)
+    {
+        $data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->get();
+
+        return response()->json([
+            "success" => true,
+            "message" => "İşə müraciət edənlər",
+            "data" => $data
+        ]);
+
+    }
+
+
     public function store(Request $request)
     {
 
+
+        //Yoxlamaq Lazımdırki işçi sayı dolubsa bu işə müraciət etmək olmasın!
+
+
         //validation
+        $archiveJob = Work::where('status', '2');
+
+        if ($archiveJob) {
+            return response()->json([
+                "success" => false,
+                "message" => "Bitmiş işə müraciət etmək olmaz",
+            ]);
+        }
+
         if (Auth::user()->role < '2') {
             return response()->json([
                 "success" => false,
@@ -21,24 +49,30 @@ class AppealController extends Controller
             ]);
         }
 
-        if (Auth::user()->appeal_work == '1') {
+        if (Auth::user()->job_status == '1') {
             return response()->json([
                 "success" => false,
-                "message" => "Siz artıq müraciət etmisiniz",
+                "message" => "Siz artıq müraciət etmisiniz. Müraciətiniz gözləmədədir!",
+            ]);
+        }
+
+        if (Auth::user()->job_status == '2') {
+            return response()->json([
+                "success" => false,
+                "message" => "İşinizin bitməyini gözləyin!",
             ]);
         }
 
 
-        //insert data to Appeals
-        $id = Auth::user()->id;
+        //Bazaya yeni müraciətin əlavə olunması
         $insert = new Appeal;
-        $insert->user_id = $id;
+        $insert->user_id = Auth::user()->id;
         $insert->job_id = $request->job_id;
 
         if ($insert->save()) {
 
-            //if insert change in users column
-            User::where('id', Auth::user()->id)->update(["appeal_work" => '1']);
+            //Müraciət olundusa istifadəçinin iş statusu gözləməyə düşür.
+            User::where('id', Auth::user()->id)->update(["job_status" => '1']);
 
             return response()->json([
                 "success" => true,

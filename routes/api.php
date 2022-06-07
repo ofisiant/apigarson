@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\JobController;
 use App\Http\Controllers\Api\AppealController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
@@ -28,4 +29,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('works', WorkController::class);
     Route::resource('appeal', AppealController::class);
     Route::resource('profile', ProfileController::class);
+
+    //need The Middleware
+    Route::resource('admin/jobs', JobController::class);
 });

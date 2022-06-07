@@ -22,6 +22,17 @@ class WorkController extends Controller
         ]);
     }
 
+    public  function show($id)
+    {
+        $data = Work::find($id);
+        return response()->json([
+            "success" => true,
+            "message" => "İş haqqında məlumat",
+            "data" => $data
+        ]);
+
+    }
+
     public function store(Request $request)
     {
         $input = $request->all();
