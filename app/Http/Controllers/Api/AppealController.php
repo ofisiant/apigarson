@@ -33,14 +33,7 @@ class AppealController extends Controller
 
 
         //validation
-        $archiveJob = Work::where('status', '2');
 
-        if ($archiveJob) {
-            return response()->json([
-                "success" => false,
-                "message" => "Bitmiş işə müraciət etmək olmaz",
-            ]);
-        }
 
         if (Auth::user()->role < '2') {
             return response()->json([
