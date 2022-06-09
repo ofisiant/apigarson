@@ -10,6 +10,19 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    public function index()
+    {
+
+    }
+    public function destroy()
+    {
+
+    }
+    public function show()
+    {
+
+    }
+
     public function store(Request $request)
     {
         $input = $request->all();

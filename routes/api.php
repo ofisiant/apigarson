@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\JobController;
 use App\Http\Controllers\Api\AppealController;
-use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ArchiveJobsController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\WorkController;
@@ -26,10 +26,11 @@ Route::controller(RegisterController::class)->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group( function () {
-    Route::resource('works', WorkController::class);
-    Route::resource('appeal', AppealController::class);
-    Route::resource('profile', ProfileController::class);
+    Route::apiResource('works', WorkController::class)->except('update');
+    Route::apiResource('works/archive', ArchiveJobsController::class);
+    Route::apiResource('appeal', AppealController::class);
+    Route::apiResource('profile', ProfileController::class);
 
     //need The Middleware
-    Route::resource('admin/jobs', JobController::class);
+    Route::apiResource('admin/jobs', JobController::class);
 });

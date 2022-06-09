@@ -11,7 +11,19 @@ use Illuminate\Support\Facades\Auth;
 
 class AppealController extends Controller
 {
+    public function index()
+    {
 
+    }
+
+    public function destroy()
+    {
+
+    }
+    public function update()
+    {
+
+    }
     public  function show($id)
     {
         $data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->get();

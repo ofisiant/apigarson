@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\WorkResource;
+use App\Models\Appeal;
+use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +26,8 @@ class WorkController extends Controller
 
     public  function show($id)
     {
-        $data = Work::find($id);
+        //$data = Work::find($id);
+        $data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id));
         return response()->json([
             "success" => true,
             "message" => "İş haqqında məlumat",
@@ -43,4 +46,16 @@ class WorkController extends Controller
             "data" => $works
         ]);
     }
+
+    public function update()
+    {
+
+    }
+
+    public function destroy()
+    {
+
+    }
+
+
 }
