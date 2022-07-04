@@ -23,7 +23,12 @@ class RegisterController extends BaseController
             'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
-        ]);
+        ],[
+                'name.required' => 'Name field is required.',
+                'password.required' => 'Password field is required.',
+                'email.required' => 'Email field is required.',
+                'email.email' => 'Email field must be email address.'
+            ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());

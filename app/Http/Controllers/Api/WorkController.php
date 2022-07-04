@@ -27,7 +27,9 @@ class WorkController extends Controller
     public  function show($id)
     {
         //$data = Work::find($id);
-        $data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id));
+        //$data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id));
+        $data = Work::find($id);
+
         return response()->json([
             "success" => true,
             "message" => "İş haqqında məlumat",

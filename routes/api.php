@@ -27,7 +27,7 @@ Route::controller(RegisterController::class)->group(function(){
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::apiResource('works', WorkController::class)->except('update');
-    Route::apiResource('works/archive', ArchiveJobsController::class);
+    Route::apiResource('archive', ArchiveJobsController::class);
     Route::apiResource('appeal', AppealController::class);
     Route::apiResource('profile', ProfileController::class);
 
