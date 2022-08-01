@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appeal;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
+use function response;
 
 class JobController extends Controller
 {
@@ -14,14 +15,8 @@ class JobController extends Controller
     {
 
     }
-    public function destroy()
-    {
 
-    }
-    public function show()
-    {
 
-    }
 
     public function store(Request $request)
     {
@@ -35,7 +30,7 @@ class JobController extends Controller
     }
 
 
-    //When Admin  End Job. Update users
+    //Admin işi bitirdikdən sonra istifadəçilərin hesablarının update olunması
     public function update(Request $request , $id)
     {
       $endJob = Work::find($id);
@@ -52,6 +47,15 @@ class JobController extends Controller
 
       }
       return response()->json([ "success" => true, "message" => "İşi tamamlandı!",]);
+
+    }
+
+    public function destroy()
+    {
+
+    }
+    public function show()
+    {
 
     }
 

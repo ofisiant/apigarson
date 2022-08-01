@@ -9,19 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function index()
-    {
-
-    }
-    public function destroy()
-    {
-
-    }
-    public function show()
-    {
-
-    }
-
     //appealing to Approve User
     public function store()
     {

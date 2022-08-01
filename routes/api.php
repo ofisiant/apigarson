@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\Admin\JobController;
-use App\Http\Controllers\Api\AppealController;
-use App\Http\Controllers\Api\ArchiveJobsController;
-use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\WorkController;
-use Illuminate\Http\Request;
+
+use App\Http\Controllers\Api\v1\AppealController;
+use App\Http\Controllers\Api\v1\ArchiveJobsController;
+use App\Http\Controllers\Api\v1\ProfileController;
+use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\Admin\JobController;
+
+
+use App\Http\Controllers\Api\v1\WorkController;
 use Illuminate\Support\Facades\Route;
-
-
 
 
 Route::controller(AuthController::class)->group(function(){
