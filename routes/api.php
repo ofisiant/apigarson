@@ -18,7 +18,7 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group( function () {
-    Route::apiResource('works', WorkController::class)->except('update');
+    Route::apiResource('works', WorkController::class)->except('update' , 'destroy');
     Route::apiResource('archive', ArchiveJobsController::class);
     Route::apiResource('appeal', AppealController::class);
     Route::apiResource('profile', ProfileController::class)->except('destroy');
