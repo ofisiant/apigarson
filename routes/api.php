@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::apiResource('works', WorkController::class)->except('update');
     Route::apiResource('archive', ArchiveJobsController::class);
     Route::apiResource('appeal', AppealController::class);
-    Route::apiResource('profile', ProfileController::class);
+    Route::apiResource('profile', ProfileController::class)->except('destroy');
 
     //@TODO add The Middleware
     Route::apiResource('admin/jobs', JobController::class);

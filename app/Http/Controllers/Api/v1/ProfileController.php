@@ -10,17 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    //Daxil olan İstifadəçinin profili
     public function index()
     {
+        $user = Auth::user();
 
+        return response()->json([
+            "success" => true,
+            "message" => " Daxil olan İstifadəçinin məlumatları",
+            "data" => $user
+        ]);
     }
-    public function destroy()
-    {
 
-    }
-    public function show()
+    public function show($id)
     {
-
+        $showUser = User::where('id', $id)->get();
+        return response()->json([
+            "success" => true,
+            "message" => "Axtardığınız İstifadəçinin məlumatları",
+            "data" => $showUser
+        ]);
     }
 
     //Hesabın təstiqlənməsi üçün müraciət etmək
@@ -58,7 +67,7 @@ class ProfileController extends Controller
 
 
     //İstifadəçi məlumatlarının yenilənməsi
-    public functi------------------------------------------------------------------------------------------------------------ on update(ProfileRequest $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
         $user = User::find($id);
         $user->name = $request->input('name');
