@@ -41,7 +41,7 @@ class AppealController extends Controller
     {
 
 
-        //Yoxlamaq Lazımdırki işçi sayı dolubsa bu işə müraciət etmək olmasın!
+        //Yoxlamaq Lazımdırki işçi sayı dolubsa bu işə müraciət etmək olmasın!&
 
 
         //validation
