@@ -37,7 +37,7 @@ class AppealController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request , $id)
     {
 
 
@@ -72,7 +72,7 @@ class AppealController extends Controller
         //Bazaya yeni müraciətin əlavə olunması
         $insert = new Appeal;
         $insert->user_id = Auth::user()->id;
-        $insert->job_id = $request->job_id;
+        $insert->job_id = $id;
 
         if ($insert->save()) {
 
