@@ -11,13 +11,23 @@ use Illuminate\Support\Facades\Auth;
 
 class AppealController extends Controller
 {
+
     public function index()
     {
 
     }
 
-    public function destroy()
+    // Müraciətdən imtina etmək .
+    public function destroy($id)
     {
+        $refusing = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "İşə müraciət edənlər",
+            "data" => $refusing
+        ]);
+
 
     }
     public function update()
@@ -27,6 +37,7 @@ class AppealController extends Controller
     public  function show($id)
     {
         $data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->get();
+        $count = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->count();
 
         return response()->json([
             "success" => true,
@@ -37,15 +48,9 @@ class AppealController extends Controller
     }
 
 
-    public function store(Request $request , $id)
+    public function store(Request $request)
     {
-
-
         //Yoxlamaq Lazımdırki işçi sayı dolubsa bu işə müraciət etmək olmasın!&
-
-
-        //validation
-
 
         if (Auth::user()->role < '2') {
             return response()->json([
@@ -68,11 +73,10 @@ class AppealController extends Controller
             ]);
         }
 
-
         //Bazaya yeni müraciətin əlavə olunması
         $insert = new Appeal;
         $insert->user_id = Auth::user()->id;
-        $insert->job_id = $id;
+        $insert->job_id = $request->job_id;
 
         if ($insert->save()) {
 

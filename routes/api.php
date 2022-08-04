@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\Admin\JobController;
 
 
+use App\Http\Controllers\Api\v1\UpdateProfileController;
 use App\Http\Controllers\Api\v1\WorkController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::apiResource('archive', ArchiveJobsController::class);
     Route::apiResource('appeal', AppealController::class);
     Route::apiResource('profile', ProfileController::class)->except('destroy');
+    Route::post('update-profile', [UpdateProfileController::class, 'updateProfile']);
 
     //@TODO add The Middleware
     Route::apiResource('admin/jobs', JobController::class);

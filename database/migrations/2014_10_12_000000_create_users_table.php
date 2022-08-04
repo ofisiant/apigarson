@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('passport_seriya')->nullable();
             $table->enum('role', ['0','1', '2', '3', '4'])->default('0');
-            $table->string('photo')->default('nophoto.png');
+            $table->string('photo')->nullable();
             $table->text('description')->nullable();
             $table->enum('position', ['Garson','Garson Assistant', 'Chef', 'Chef Assistant', 'Steward', 'Hostes'])->default('Garson');
             $table->integer('balance')->default(0);
