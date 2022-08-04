@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->enum('position', ['Garson','Garson Assistant', 'Chef', 'Chef Assistant', 'Steward', 'Hostes'])->default('Garson');
             $table->integer('balance')->default(0);
+            $table->integer('profit')->default(0);
             $table->integer('completed_work')->default(0);
             $table->enum('job_status', ['0','1', '2'])->default('0');
 
