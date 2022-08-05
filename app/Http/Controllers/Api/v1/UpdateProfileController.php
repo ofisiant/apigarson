@@ -29,9 +29,18 @@ class UpdateProfileController extends Controller
         }
         if($request->hasFile('photo')){
 
-            $filename = $request->photo->getClientOriginalName();
+            $filename = time().'.'.$request->photo->extension();
+            //dd($filename);
+
+
             $request->photo->storeAs('images',$filename,'public');
-            Auth()->user()->update(['photo'=>$filename]);
+            //Auth::user()->update(["photo" => $filename]);
+            Auth::user()->update(['photo' => $filename]);
+
+
+
+
+
         }
 
         $user->name = $request->input('name');

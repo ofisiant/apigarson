@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Api\v1\Admin\UsersController;
 use App\Http\Controllers\Api\v1\AppealController;
 use App\Http\Controllers\Api\v1\ArchiveJobsController;
 use App\Http\Controllers\Api\v1\ProfileController;
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::apiResource('profile', ProfileController::class)->except('destroy');
     Route::post('update-profile', [UpdateProfileController::class, 'updateProfile']);
 
-    //@TODO add The Middleware
+    //@TODO Middleware - Yalniz adminlerin girishi !
+    //@TODO group admin
     Route::apiResource('admin/jobs', JobController::class);
+    Route::apiResource('admin/users', UsersController::class);
 });
