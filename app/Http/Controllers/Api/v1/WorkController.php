@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\WorkResource;
 use App\Models\Appeal;
@@ -10,30 +11,25 @@ use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WorkController extends Controller
+class WorkController extends BaseController
 {
     public function index()
     {
         $works = Work::where('status' , '0')->get();
 
-        //return $this->sendResponse(WorkResource::collection($works), 'Works retrieved successfully.');
-        return response()->json([
-            "success" => true,
-            "message" => "Active Works",
-            "data" => $works
-        ]);
+        return $this->sendResponse($works, 'Aktiv işlər siyahısı');
+
     }
 
     public  function show($id)
     {
-        //$data = Work::find($id);
-        //$data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id));
-        $data = Work::find($id);
-
+        //İşi axtardığımız zaman bu işə müraciətt edənləridə görmək üçün
+        $appealedUsers = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id));
+        $job = Work::find($id);
         return response()->json([
             "success" => true,
             "message" => "İş haqqında məlumat",
-            "data" => $data
+            "data" => [$job , $appealedUsers]
         ]);
 
     }

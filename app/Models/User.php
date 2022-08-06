@@ -21,8 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
-        'balance',
+        'phone',
+        'passport_seriya',
+        'photo',
+        'description',
+        'position',
+        'eng_lang',
+        'tr_lang',
+        'ru_lang',
         'completed_works',
     ];
 

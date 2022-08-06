@@ -57,6 +57,7 @@ class AppealController extends Controller
                 "success" => false,
                 "message" => "İşə  müraciət etmək üçün ilk öncə Hesabınızı təstiq edin",
             ]);
+
         }
 
         if (Auth::user()->job_status == '1') {

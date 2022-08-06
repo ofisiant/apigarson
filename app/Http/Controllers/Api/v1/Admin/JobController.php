@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Admin;
 
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Appeal;
 use App\Models\User;
@@ -9,24 +10,34 @@ use App\Models\Work;
 use Illuminate\Http\Request;
 use function response;
 
-class JobController extends Controller
+class JobController extends BaseController
 {
     public function index()
     {
+        $jobs = Work::all();
+        return response()->json([
+            "success" => true,
+            "message" => "Butun ishler",
+            "data" => $jobs
+        ]);
 
     }
 
+    public function show($id)
+    {
+        $job = Work::where('id', $id)->get();
+        return $this->sendResponse($job, 'Sechilen ish haqqinda melumat. Bu ishde iishleyenler');
+
+
+    }
 
 
     public function store(Request $request)
     {
         $input = $request->all();
-        $works = Work::create($input);
-        return response()->json([
-            "success" => true,
-            "message" => "Yeni iş elanı əlavə olundu!",
-            "data" => $works
-        ]);
+        $jobs = Work::create($input);
+        return $this->sendResponse($jobs, 'Yeni iş elanı əlavə olundu!');
+
     }
 
 
@@ -54,9 +65,6 @@ class JobController extends Controller
     {
 
     }
-    public function show()
-    {
 
-    }
 
 }

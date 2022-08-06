@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Api\v1\Admin\ConfirmUserController;
 use App\Http\Controllers\Api\v1\Admin\UsersController;
 use App\Http\Controllers\Api\v1\AppealController;
 use App\Http\Controllers\Api\v1\ArchiveJobsController;
@@ -27,7 +28,17 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('update-profile', [UpdateProfileController::class, 'updateProfile']);
 
     //@TODO Middleware - Yalniz adminlerin girishi !
-    //@TODO group admin
-    Route::apiResource('admin/jobs', JobController::class);
-    Route::apiResource('admin/users', UsersController::class);
+
+
+    Route::prefix('admin')->group(function () {
+        Route::apiResource('users', UsersController::class);
+        Route::get('confirm-user',[ConfirmUserController::class , 'index']);
+        Route::post('confirm-user/{id}',[ConfirmUserController::class , 'confirmUser']);
+
+
+        Route::apiResource('jobs', JobController::class);
+       // Route::post('create-job',[JobController::class , 'store']);
+
+    });
+
 });
