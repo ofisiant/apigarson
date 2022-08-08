@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,24 +12,25 @@ use Illuminate\Support\Facades\Validator;
 
 class UpdateProfileController extends BaseController
 {
-    public function updateProfile(Request $request)
+    public function updateProfile(ProfileRequest $request)
     {
-        $id = Auth::user()->id;
-        $user = User::findOrFail($id);
+        $userUpdate = User::where('id', Auth::user()->id)->update($request->validated());
+        $user = User::findOrFail(Auth::user()->id);
 
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->passport_seriya = $request->passport_seriya;
-        $user->description = $request->description;
-        $user->position = $request->position;
-        $user->eng_lang = $request->eng_lang;
-        $user->tr_lang = $request->tr_lang;
-        $user->ru_lang = $request->ru_lang;
-        $user->save();
+
+        if ($request->hasFile('photo'))
+        {
+            $photo = $request->file('photo');
+            $name = time() . '.'. $photo->getClientOriginalName();
+            $destinationPath = public_path('/images/profile');
+            $photo->move($destinationPath , $name);
+
+            $user->update(['photo'=> $name]);
+        }
         return $this->sendResponse($user, 'Hesabiniz yenilendi');
 
 
-        //dd($id);
+
     }
 
 }

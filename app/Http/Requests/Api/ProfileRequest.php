@@ -6,26 +6,32 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'name' => 'string|min:3|max:191',
+            'phone' => 'string|min:0|max:191',
+            'passport_seriya' => 'string',
+            'photo' => 'image||mimes:jpeg,png,jpg,gif',
+            'description' => 'string',
+            'position' => 'string',
+            'eng_lang' => 'numeric',
+            'tr_lang' => 'numeric',
+            'ru_lang' => 'numeric',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.min' => 'Adınız minimum 3 hərf olmalıdır!',
+            'phone.numeric' => 'Yalniz Reqem',
 
         ];
     }
