@@ -26,8 +26,8 @@ class WorkController extends BaseController
         $job = Work::findOrFail($id);
         //$appealedUsers = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id));
         $appealedUsers = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->get();
-      
-        return $this->sendResponse([$job , $appealedUsers], 'İş haqqında məlumat');
+
+        return $this->sendResponse(['job'=>$job , 'appliier'=>$appealedUsers], 'İş haqqında məlumat');
 
     }
 
