@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('customer');
             $table->enum('position', ['Garson', 'Garson Assistant','Chef' , 'Steward' , 'Hostes']);
             $table->text('description');
-            $table->enum('status', ['0', '1','2']);
+            $table->enum('status', ['0', '1','2'])->default('0');
+            $table->enum('express', ['0', '1'])->default('0');
             $table->dateTime('start_at');
             $table->timestamps();
         });

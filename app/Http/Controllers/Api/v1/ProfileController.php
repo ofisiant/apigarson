@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ProfileRequest;
 use App\Models\User;
@@ -9,28 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
     //Daxil olan İstifadəçinin profili
     public function index()
     {
         $user = Auth::user();
+        return $this->sendResponse($user, 'Daxil olan İstifadəçinin məlumatları');
 
-        return response()->json([
-            "success" => true,
-            "message" => " Daxil olan İstifadəçinin məlumatları",
-            "data" => $user
-        ]);
     }
 
     public function show($id)
     {
         $showUser = User::where('id', $id)->get();
-        return response()->json([
-            "success" => true,
-            "message" => "Axtardığınız İstifadəçinin məlumatları",
-            "data" => $showUser
-        ]);
+        return $this->sendResponse($showUser, 'Axtardığınız İstifadəçinin məlumatları');
+
     }
 
     //Hesabın təstiqlənməsi üçün müraciət etmək

@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::prefix('admin')->group(function () {
         Route::apiResource('users', UsersController::class);
         Route::get('confirm-user',[ConfirmUserController::class , 'index']);
+        Route::get('appeals',[\App\Http\Controllers\api\v1\Admin\AppealController::class , 'index']);
         Route::post('confirm-user/{id}',[ConfirmUserController::class , 'confirmUser']);
 
 

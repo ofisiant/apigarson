@@ -15,8 +15,9 @@ class WorkController extends BaseController
     public function index()
     {
         $works = Work::where('status' , '0')->get();
+        $express = Work::where('express' , '1')->get();
 
-        return $this->sendResponse($works, 'Aktiv işlər siyahısı');
+        return $this->sendResponse(['job'=>$works , 'express'=>$express], 'Aktiv işlər siyahısı');
 
     }
 

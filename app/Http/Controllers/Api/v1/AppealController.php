@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use App\Models\Appeal;
 use Illuminate\Support\Facades\Auth;
 
-class AppealController extends Controller
+class AppealController extends BaseController
 {
 
     public function index()
@@ -21,29 +21,15 @@ class AppealController extends Controller
     public function destroy($id)
     {
         $refusing = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->delete();
-
-        return response()->json([
-            "success" => true,
-            "message" => "İşə müraciət edənlər",
-            "data" => $refusing
-        ]);
-
-
+        return $this->sendResponse($refusing, 'İşə müraciət edənlər');
     }
-    public function update()
-    {
 
-    }
+
     public  function show($id)
     {
         $data = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->get();
         $count = User::whereIn('id', Appeal::select('user_id')->where('job_id', $id))->count();
-
-        return response()->json([
-            "success" => true,
-            "message" => "İşə müraciət edənlər",
-            "data" => $data
-        ]);
+        return $this->sendResponse($data, 'İşə müraciət edənlər');
 
     }
 
